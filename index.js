@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const dropdownDeLa = document.querySelector("#valutaDeLaContainer select");
   const dropdownCatre = document.querySelector("#valutaCatreContainer select");
 
-  // 2. Adăugăm evenimente pentru dropdown-uri
+  // Adăugăm evenimente pentru dropdown-uri
   dropdownDeLa.addEventListener("change", function () {
     valutaDeLaText.textContent = this.value; // Actualizează textul în <p>
     convert(); // Rulează conversia
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     convert();
   });
 
-  // 3. Funcția convert() rămâne aceeași ca în codul tău original
+  // Funcția convert()
   async function convert() {
     const suma = parseFloat(document.getElementById("inputSuma").value);
     const valutaDeLa = valutaDeLaText.textContent;
