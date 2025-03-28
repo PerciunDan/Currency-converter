@@ -1,0 +1,49 @@
+.costum-input {
+  width: 204px;
+}
+
+.bg-image {
+  background-image: url(https://wallpapershome.com/images/pages/pic_h/12461.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+}
+
+.bg-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay negru semi-transparent */
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ff00ff);
+  background-size: 300% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pulse 6s ease infinite;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3); /* Efect de strălucire */
+}
+
+@keyframes gradient-pulse {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
