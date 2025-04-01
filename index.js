@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Selectare elemente DOM
   const inputSuma = document.getElementById("inputSuma");
   const inputRezultat = document.getElementById("inputRezultat");
   const valutaDeLaText = document.getElementById("valutaDeLaText");
@@ -6,63 +7,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const dropdownDeLa = document.querySelector("#valutaDeLaContainer select");
   const dropdownCatre = document.querySelector("#valutaCatreContainer select");
 
-  // Adăugăm evenimente pentru dropdown-uri
-  dropdownDeLa.addEventListener("change", function () {
-    valutaDeLaText.textContent = this.value; // Actualizează textul în <p>
-    convert(); // Rulează conversia
-  });
+  // Inițializare evenimente
+  function initEvents() {
+    dropdownDeLa.addEventListener("change", () => {
+      valutaDeLaText.textContent = dropdownDeLa.value;
+      convert();
+    });
 
-  dropdownCatre.addEventListener("change", function () {
-    valutaCatreText.textContent = this.value; // Actualizează textul în <p>
-    convert();
-  });
+    dropdownCatre.addEventListener("change", () => {
+      valutaCatreText.textContent = dropdownCatre.value;
+      convert();
+    });
 
-  // Funcția convert()
-  async function convert() {
-    const suma = parseFloat(document.getElementById("inputSuma").value);
-    const valutaDeLa = valutaDeLaText.textContent;
-    const valutaCatre = valutaCatreText.textContent;
+    document.querySelectorAll("#butoaneValutaDeLa").forEach((buton) => {
+      buton.addEventListener("click", () => {
+        valutaDeLaText.textContent = buton.textContent;
+        convert();
+      });
+    });
 
-    if (!suma || isNaN(suma)) {
-      document.getElementById("inputRezultat").value = "Introdu o sumă validă";
-      return;
-    }
+    document.querySelectorAll("#butoaneValutaCatre").forEach((buton) => {
+      buton.addEventListener("click", () => {
+        valutaCatreText.textContent = buton.textContent;
+        convert();
+      });
+    });
 
-    try {
-      const raspuns = await fetch(
-        `https://v6.exchangerate-api.com/v6/626fb82fb949db88aae15695/latest/USD${valutaDeLa}`
-      );
-      const date = await raspuns.json();
-      const rata = date.conversion_rates[valutaCatre];
-      document.getElementById("inputRezultat").value = (suma * rata).toFixed(2);
-    } catch (eroare) {
-      document.getElementById("inputRezultat").value = "Eroare conexiune";
-    }
+    inputSuma.addEventListener("input", convert);
   }
 
-  // Butoanele pentru valute "de la"
-  document.querySelectorAll("#butoaneValutaDeLa").forEach((buton) => {
-    buton.addEventListener("click", () => {
-      valutaDeLaText.textContent = buton.textContent;
-      convert();
-    });
-  });
-
-  // Butoanele pentru valute "către"
-  document.querySelectorAll("#butoaneValutaCatre").forEach((buton) => {
-    buton.addEventListener("click", () => {
-      valutaCatreText.textContent = buton.textContent;
-      convert();
-    });
-  });
-
-  // Ascultă schimbări în input
-  inputSuma.addEventListener("input", convert);
-
+  // Funcția principală
   async function convert() {
     const suma = parseFloat(inputSuma.value);
-    const valutaDeLa = valutaDeLaText.textContent.trim(); // ex: "USD"
-    const valutaCatre = valutaCatreText.textContent.trim(); // ex: "EUR"
+    const valutaDeLa = valutaDeLaText.textContent.trim();
+    const valutaCatre = valutaCatreText.textContent.trim();
 
     if (!suma || isNaN(suma)) {
       inputRezultat.value = "Introdu o sumă validă";
@@ -87,4 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       inputRezultat.value = "Eroare de conexiune";
     }
   }
+
+  // Pornire aplicație
+  initEvents();
 });
