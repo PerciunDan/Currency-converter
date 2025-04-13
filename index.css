@@ -21,7 +21,6 @@
   background-color: rgba(0, 0, 0, 0.5); /* Overlay negru semi-transparent */
   z-index: 1;
   backdrop-filter: blur(10px);
-  border-radius: 20px;
   padding: 30px;
 }
 
